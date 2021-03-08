@@ -9,13 +9,5 @@
     <arg name="racecar_version" value="$(arg racecar_version)" />
     <arg name="run_camera" value="$(arg run_camera)" />
   </include>
-
-
-
-
-
-
-
-
 </launch>
 
