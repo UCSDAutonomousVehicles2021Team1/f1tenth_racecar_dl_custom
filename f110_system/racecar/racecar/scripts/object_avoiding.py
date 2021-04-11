@@ -84,24 +84,6 @@ class ObjectLaneAvoider:
         best_left_box = None
         best_right_box = None
         for lane in lane_indices:
-            # mask = self.bridge_object.imgmsg_to_cv2(masks[lane])[self.y_center_offset:]
-            # coordinates = []
-            # find_tops = np.diff(mask, axis = 0)
-            # find_tops = np.where(find_tops == 0, -1, 255)
-            # top_locations = np.argmax(find_tops, axis = 0)
-            # for i, top in enumerate(top_locations):
-            #     if find_tops[top][i] != -1:
-            #         coordinates.append([top, i])
-            # coordinates = np.array(coordinates)
-            # slope = np.diff(coordinates, axis = 0)
-            # num_rows = slope.shape[0]
-            # running_slope = 0
-            # for row in slope:
-            #     if row[1] == 0:
-            #         running_slope += row[0]
-            #     else:
-            #         running_slope += (row[0]/row[1])
-            # slope = running_slope/num_rows
             current_bbox = bbox[lane]
             if (2 * current_bbox.x_offset + current_bbox.width)/2 < self.width/2:
                 if current_bbox.x_offset < most_extreme_top_left:
@@ -111,14 +93,6 @@ class ObjectLaneAvoider:
                 if current_bbox.x_offset + current_bbox.width > most_extreme_top_right:
                     best_right_box = current_bbox
                     most_extreme_top_right = current_bbox.x_offset + current_bbox.width 
-            # if slope > 0:
-            #     if current_bbox.x_offset > most_extreme_top_right:
-            #         most_extreme_top_right = current_bbox.x_offset
-            #         best_right_box = current_bbox
-            # else:
-            #     if current_bbox.x_offset + current_bbox.width < most_extreme_top_left:
-            #         most_extreme_top_left = current_bbox.x_offset + current_bbox.width
-            #         best_left_box = current_bbox
         return best_left_box, best_right_box
 
     def generating_box_coordinates(self, best_left_box, best_right_box):
